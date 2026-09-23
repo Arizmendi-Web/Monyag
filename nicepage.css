@@ -46660,6 +46660,13 @@ a.u-link.u-text-hover-color-var.hover {
   }
 }
 
+ /*begin-variables custom-site-css*//* Prevent words from breaking across lines or hyphenating automatically */
+.no-word-break, h1, h2, h3, header {
+  white-space: normal;
+  word-break: keep-all;
+  overflow-wrap: normal;
+  hyphens: manual;
+}/*end-variables custom-site-css*/
  /*begin-variables base-font-size*/ 
  html { font-size: 16px; }
  /*end-variables base-font-size*/
