@@ -75,19 +75,19 @@
 }
 
 .u-section-1 .u-text-1 {
+  font-family: "Great Vibes";
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin: -289px auto 0 36px;
+}
+
+.u-section-1 .u-text-2 {
   font-family: "Bodoni Moda";
   font-weight: 700;
   text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
   --text-color-var: #b86c7d;
   font-size: 1.5rem;
-  margin: -389px auto 0 36px;
-}
-
-.u-section-1 .u-text-2 {
-  font-family: "Great Vibes";
-  font-weight: 700;
-  font-size: 1.5rem;
-  margin: 61px auto 60px 36px;
+  margin: -138px auto 60px 36px;
 }
 
 @media (max-width: 1199px) {
@@ -110,6 +110,18 @@
   .u-section-1 .u-carousel-control-2 {
     right: 8px;
   }
+
+  .u-section-1 .u-text-1 {
+    width: auto;
+    margin-top: -291px;
+    margin-left: 34px;
+  }
+
+  .u-section-1 .u-text-2 {
+    width: auto;
+    margin-top: -140px;
+    margin-left: 34px;
+  }
 }
 
 @media (max-width: 991px) {
@@ -119,6 +131,16 @@
 
   .u-section-1 .u-carousel-control-2 {
     right: 6px;
+  }
+
+  .u-section-1 .u-text-1 {
+    margin-top: -285px;
+    margin-left: 33px;
+  }
+
+  .u-section-1 .u-text-2 {
+    margin-top: -142px;
+    margin-left: 33px;
   }
 }
 
@@ -133,10 +155,12 @@
 
   .u-section-1 .u-text-1 {
     font-size: 1.3333333333333333rem;
+    margin-top: -293px;
   }
 
   .u-section-1 .u-text-2 {
     font-size: 1.3333333333333333rem;
+    margin-top: -118px;
   }
 }
 
@@ -147,5 +171,17 @@
 
   .u-section-1 .u-carousel-control-2 {
     right: 3px;
+  }
+
+  .u-section-1 .u-text-1 {
+    margin-top: -303px;
+    margin-left: 7px;
+    margin-right: 7px;
+  }
+
+  .u-section-1 .u-text-2 {
+    margin-top: -108px;
+    margin-left: 21px;
+    margin-right: 21px;
   }
 }
