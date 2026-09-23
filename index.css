@@ -1,11 +1,15 @@
+ .u-section-1 {
+  --color-var: #fdf2f1;
+}
+
 .u-section-1 .u-sheet-1 {
-  min-height: 765px;
+  min-height: 817px;
 }
 
 .u-section-1 .u-gallery-1 {
   height: 646px;
   margin-top: 0;
-  margin-bottom: 60px;
+  margin-bottom: 0;
 }
 
 .u-section-1 .u-carousel-indicators-1 {
@@ -70,6 +74,22 @@
   height: 40px;
 }
 
+.u-section-1 .u-text-1 {
+  font-family: "Bodoni Moda";
+  font-weight: 700;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+  --text-color-var: #b86c7d;
+  font-size: 1.5rem;
+  margin: -389px auto 0 36px;
+}
+
+.u-section-1 .u-text-2 {
+  font-family: "Great Vibes";
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin: 61px auto 60px 36px;
+}
+
 @media (max-width: 1199px) {
   .u-section-1 .u-carousel-item-1 {
     margin-right: initial;
@@ -109,6 +129,14 @@
 
   .u-section-1 .u-carousel-control-2 {
     right: 5px;
+  }
+
+  .u-section-1 .u-text-1 {
+    font-size: 1.3333333333333333rem;
+  }
+
+  .u-section-1 .u-text-2 {
+    font-size: 1.3333333333333333rem;
   }
 }
 
