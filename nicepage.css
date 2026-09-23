@@ -46628,28 +46628,35 @@ a.u-link.u-text-hover-color-var.hover {
 }
 
 .u-footer .u-sheet-1 {
-  min-height: 205px;
+  min-height: 282px;
 }
 
 .u-footer .u-social-icons-1 {
-  height: 43px;
-  width: 154px;
-  margin: 36px auto 0 33px;
+  height: 32px;
+  width: 160px;
+  margin: 42px auto 0 45px;
 }
 
 .u-footer .u-icon-1 {
-  height: 0;
-  color: rgb(59, 89, 152) !important;
+  height: 100%;
 }
 
 .u-footer .u-icon-2 {
-  height: 0;
-  color: rgb(17, 17, 17) !important;
+  height: 100%;
 }
 
 .u-footer .u-icon-3 {
+  height: 100%;
+}
+
+.u-footer .u-icon-4 {
+  height: 100%;
+  background-image: none;
+}
+
+.u-footer .u-icon-5 {
   height: 0;
-  color: rgb(197, 54, 164) !important;
+  background-image: none;
 }
 
 .u-footer .u-btn-1 {
@@ -46660,7 +46667,7 @@ a.u-link.u-text-hover-color-var.hover {
   --bottom-left-radius: 0px;
   background-image: none;
   font-size: 1.25rem;
-  margin: -36px 328px 0 auto;
+  margin: -32px 328px 0 auto;
   padding: 0;
 }
 
@@ -46673,15 +46680,15 @@ a.u-link.u-text-hover-color-var.hover {
 .u-footer .u-text-1 {
   font-family: Sacramento;
   font-size: 1.875rem;
-  margin: -43px auto 45px;
+  margin: -43px auto 60px;
 }
 @media (max-width: 1199px) {
   .u-footer .u-social-icons-1 {
-    width: 154px;
+    margin-top: 45px;
   }
 
   .u-footer .u-btn-1 {
-    margin-top: -33px;
+    margin-top: -32px;
     margin-right: 128px;
   }
 
@@ -46705,6 +46712,14 @@ a.u-link.u-text-hover-color-var.hover {
   }
 }
 @media (max-width: 767px) {
+  .u-footer .u-social-icons-1 {
+    margin-top: 40px;
+  }
+
+  .u-footer .u-btn-1 {
+    margin-top: -27px;
+  }
+
   .u-footer .u-custom-html-1 {
     margin-left: 504px;
   }
@@ -46714,8 +46729,26 @@ a.u-link.u-text-hover-color-var.hover {
   }
 }
 @media (max-width: 575px) {
+  .u-footer .u-social-icons-1 {
+    margin-top: 98px;
+  }
+
+  .u-footer .u-btn-1 {
+    margin-top: -41px;
+    margin-right: auto;
+  }
+
   .u-footer .u-custom-html-1 {
-    margin-left: 304px;
+    margin-top: 39px;
+    margin-right: 89px;
+    margin-left: 215px;
+  }
+
+  .u-footer .u-text-1 {
+    width: auto;
+    margin-top: -85px;
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 
