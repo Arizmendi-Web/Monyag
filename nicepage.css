@@ -46660,12 +46660,6 @@ a.u-link.u-text-hover-color-var.hover {
   }
 }
 
- /*begin-variables custom-site-css*//* Force Nicepage text elements to fit without wrapping or breaking */
-.u-text, .u-text * {
-  white-space: nowrap !important;
-  word-break: normal !important;
-  overflow-wrap: normal !important;
-}/*end-variables custom-site-css*/
  /*begin-variables base-font-size*/ 
  html { font-size: 16px; }
  /*end-variables base-font-size*/
