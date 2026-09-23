@@ -87,7 +87,7 @@
   text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
   --text-color-var: #b86c7d;
   font-size: 1.5rem;
-  margin: -138px auto 60px 36px;
+  margin: -138px 684px 60px 36px;
 }
 
 @media (max-width: 1199px) {
@@ -120,6 +120,7 @@
   .u-section-1 .u-text-2 {
     width: auto;
     margin-top: -140px;
+    margin-right: 484px;
     margin-left: 34px;
   }
 }
@@ -140,6 +141,7 @@
 
   .u-section-1 .u-text-2 {
     margin-top: -142px;
+    margin-right: 264px;
     margin-left: 33px;
   }
 }
@@ -161,6 +163,7 @@
   .u-section-1 .u-text-2 {
     font-size: 1.3333333333333333rem;
     margin-top: -118px;
+    margin-right: 84px;
   }
 }
 
@@ -180,7 +183,6 @@
   }
 
   .u-section-1 .u-text-2 {
-    font-size: 1.33333rem;
     margin-top: -172px;
     margin-right: 159px;
     margin-left: 6px;

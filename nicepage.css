@@ -46456,7 +46456,7 @@ a.u-link.u-text-hover-color-var.hover {
   text-transform: uppercase;
   font-weight: 400;
   font-size: 1.875rem;
-  margin: 10px 800px 0 34px;
+  margin: 10px 717px 0 34px;
 }
 
 .u-header .u-text-2 {
@@ -46660,12 +46660,11 @@ a.u-link.u-text-hover-color-var.hover {
   }
 }
 
- /*begin-variables custom-site-css*//* Prevent words from breaking across lines or hyphenating automatically */
-.no-word-break, h1, h2, h3, header {
-  white-space: normal;
-  word-break: keep-all;
-  overflow-wrap: normal;
-  hyphens: manual;
+ /*begin-variables custom-site-css*//* Force Nicepage text elements to fit without wrapping or breaking */
+.u-text, .u-text * {
+  white-space: nowrap !important;
+  word-break: normal !important;
+  overflow-wrap: normal !important;
 }/*end-variables custom-site-css*/
  /*begin-variables base-font-size*/ 
  html { font-size: 16px; }
