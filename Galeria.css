@@ -324,7 +324,7 @@
 
   .u-section-1 .u-text-2 {
     font-size: 1.6666666666666665rem;
-    margin-top: 53px;
+    margin-top: 54px;
   }
 
   .u-section-1 .u-carousel-control-1 {
@@ -338,6 +338,7 @@
 
 @media (max-width: 575px) {
   .u-section-1 .u-text-2 {
+    margin-top: 53px;
     margin-left: auto;
   }
 
@@ -556,13 +557,14 @@
 }
 
 @media (max-width: 767px) {
-  .u-section-2 .u-text-1 {
-    font-size: 1.6666666666666665rem;
+  .u-section-2 .u-sheet-1 {
+    min-height: 1072px;
   }
 
-  .u-section-2 .u-gallery-1 {
-    margin-top: 80px;
+  .u-section-2 .u-text-1 {
+    font-size: 1.6666666666666665rem;
     width: auto;
+    margin-top: 20px;
   }
 
   .u-section-2 .u-carousel-control-1 {
@@ -575,6 +577,21 @@
 }
 
 @media (max-width: 575px) {
+  .u-section-2 .u-sheet-1 {
+    min-height: 1075px;
+  }
+
+  .u-section-2 .u-text-1 {
+    margin-top: 21px;
+    margin-left: auto;
+  }
+
+  .u-section-2 .u-gallery-1 {
+    margin-top: 21px;
+    margin-bottom: 21px;
+    width: auto;
+  }
+
   .u-section-2 .u-carousel-control-1 {
     left: 3px;
   }
@@ -822,12 +839,20 @@
 }
 
 @media (max-width: 767px) {
+  .u-section-3 .u-sheet-1 {
+    min-height: 1078px;
+  }
+
   .u-section-3 .u-text-1 {
     font-size: 1.6666666666666665rem;
+    width: auto;
+    margin-top: 22px;
+    margin-left: 22px;
   }
 
   .u-section-3 .u-gallery-1 {
-    margin-top: 23px;
+    margin-top: 22px;
+    margin-bottom: 22px;
     width: auto;
   }
 
@@ -841,9 +866,12 @@
 }
 
 @media (max-width: 575px) {
-  .u-section-3 .u-gallery-1 {
-    margin-top: 20px;
-    width: auto;
+  .u-section-3 .u-sheet-1 {
+    min-height: 1077px;
+  }
+
+  .u-section-3 .u-text-1 {
+    margin-left: auto;
   }
 
   .u-section-3 .u-carousel-control-1 {
@@ -1061,12 +1089,20 @@
 }
 
 @media (max-width: 767px) {
+  .u-section-4 .u-sheet-1 {
+    min-height: 1075px;
+  }
+
   .u-section-4 .u-text-1 {
     font-size: 1.6666666666666665rem;
+    width: auto;
+    margin-top: 21px;
+    margin-left: 22px;
   }
 
   .u-section-4 .u-gallery-1 {
-    margin-top: 12px;
+    margin-top: 21px;
+    margin-bottom: 21px;
     width: auto;
   }
 
@@ -1080,6 +1116,10 @@
 }
 
 @media (max-width: 575px) {
+  .u-section-4 .u-text-1 {
+    margin-left: auto;
+  }
+
   .u-section-4 .u-carousel-control-1 {
     left: 3px;
   }
