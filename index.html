@@ -241,5 +241,35 @@ c5.5,0,9.9,4.5,9.9,9.9V73.3z"></path></svg></span>
         </div>
       </div></footer>
   <!-- Where Sanity posts will be inserted -->
+<div id="posts-container"></div>
 
+<script>
+  (function() {
+    const projectId = 'zjh62d7j';
+    const dataset = 'production';
+    const query = encodeURIComponent('*[_type == "post"]');
+    const url = `https://${projectId}.api.sanity.io/v2026-03-01/data/query/${dataset}?query=${query}`;
+
+    fetch(url)
+      .then(res => res.json())
+      .then(({ result }) => {
+        const container = document.getElementById('posts-container');
+        if (!container) return; // Safely exits if container isn't found
+        
+        container.innerHTML = '';
+        if (!result || result.length === 0) return; // Leaves container completely hidden/empty if 0 posts
+
+        result.forEach(post => {
+          const item = document.createElement('div');
+          item.className = 'post-item';
+          item.innerHTML = `
+            <h2>${post.title || ''}</h2>
+            <p>${post.content || ''}</p>
+          `;
+          container.appendChild(item);
+        });
+      })
+      .catch(err => console.error('Error loading Sanity content:', err));
+  })();
+</script>
 </body></html>
