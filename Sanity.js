@@ -1,4 +1,4 @@
-(function() {
+document.addEventListener("DOMContentLoaded", function() {
   const projectId = 'zjh62d7j';
   const dataset = 'production';
   const apiVersion = 'v2026-03-01'; // Matches existing API version[cite: 3]
@@ -51,6 +51,11 @@
             </div>
           `;
         }).join('');
+
+        // Trigger Nicepage carousel rebuild if active
+        if (window.jQuery && $.fn.carousel) {
+          $(container).parent().carousel();
+        }
       })
       .catch(err => console.error(`Error loading ${lang} Hero Slides:`, err));
   }
@@ -68,7 +73,7 @@
   }
 
   // ----------------------------------------------------
-  // 2. FETCH POSTS (YOUR EXISTING CODE)[cite: 3]
+  // 2. FETCH POSTS[cite: 3]
   // ----------------------------------------------------
   const postsContainer = document.getElementById('posts-container');
   if (postsContainer) {
@@ -93,4 +98,4 @@
       })
       .catch(err => console.error('Error loading Sanity content:', err));
   }
-})();
+});
