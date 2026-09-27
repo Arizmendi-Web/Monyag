@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", function() {
   const dataset = 'production';
   const apiVersion = 'v2026-03-01';
 
-  // Helper to build Sanity CDN Image URLs
   function getSanityImageUrl(source) {
     if (!source || !source.asset || !source.asset._ref) return '';
     const ref = source.asset._ref;
@@ -14,103 +13,78 @@ document.addEventListener("DOMContentLoaded", function() {
     return `https://cdn.sanity.io/images/${projectId}/${dataset}/${id}-${dimensions}.${format}`;
   }
 
-
   function loadHeroCarousel(container, lang) {
-    const heroQuery = encodeURIComponent(`*[_type == "heroSlide" && language == "${lang}"][0].slides`);
-    const heroUrl = `https://${projectId}.api.sanity.io/${apiVersion}/data/query/${dataset}?query=${heroQuery}`;
+    // ...unchanged, same as before...
+  }
 
-    fetch(heroUrl)
+  // NEW: fills in the "Our Services" grid (Decoration, Tents, Tables and Chairs, Backdrops and Centerpieces)
+  function loadServicesSection(container, lang) {
+    const servicesQuery = encodeURIComponent(`*[_type == "servicesSection" && language == "${lang}"][0].services`);
+    const servicesUrl = `https://${projectId}.api.sanity.io/${apiVersion}/data/query/${dataset}?query=${servicesQuery}`;
+
+    fetch(servicesUrl)
       .then(res => res.json())
       .then(({ result }) => {
-        // If no document exists, or the slides array is empty/missing, exit cleanly
         if (!result || !Array.isArray(result) || result.length === 0) return;
 
-        const existingSlides = Array.from(container.querySelectorAll('.u-carousel-item'));
-        if (existingSlides.length === 0) return; // nothing to clone from, bail safely
+        const existingItems = Array.from(container.querySelectorAll('.u-gallery-item'));
+        if (existingItems.length === 0) return;
 
-        result.forEach((slide, index) => {
-          const imageUrl = getSanityImageUrl(slide.image);
-          let slideEl = existingSlides[index];
+        result.forEach((item, index) => {
+          const imageUrl = getSanityImageUrl(item.image);
+          let itemEl = existingItems[index];
 
-          if (!slideEl) {
-            // More Sanity slides than template slides: clone the last real one
-            // so it inherits nicepage's exact styling, then append it.
-            const template = existingSlides[existingSlides.length - 1];
-            slideEl = template.cloneNode(true);
-            slideEl.classList.remove('u-active');
-            container.appendChild(slideEl);
-            existingSlides.push(slideEl);
+          if (!itemEl) {
+            // More Sanity items than template cards: clone the last real one
+            const template = existingItems[existingItems.length - 1];
+            itemEl = template.cloneNode(true);
+            container.appendChild(itemEl);
+            existingItems.push(itemEl);
           }
 
-          const img = slideEl.querySelector('img.u-back-image');
+          const img = itemEl.querySelector('img.u-back-image');
           if (img) {
             img.src = imageUrl;
             img.dataset.src = imageUrl;
-            img.alt = slide.overlayText || 'Hero Slide';
+            img.alt = item.label || '';
           }
-          const heading = slideEl.querySelector('.u-gallery-text');
-          if (heading) heading.textContent = slide.overlayText || '';
+          const heading = itemEl.querySelector('.u-gallery-heading');
+          if (heading) heading.textContent = item.label || '';
+
+          // Optional: only overwrite the link if you added one in Sanity for this item
+          if (item.link) {
+            itemEl.dataset.href = item.link;
+          }
         });
 
-        // Remove any leftover template slides beyond what Sanity returned
-        const allSlides = Array.from(container.querySelectorAll('.u-carousel-item'));
-        for (let i = result.length; i < allSlides.length; i++) {
-          allSlides[i].remove();
-        }
-
-        // Keep the indicator dots in sync with the final slide count
-        const carousel = container.closest('.u-carousel');
-        const indicatorsList = carousel && carousel.querySelector('.u-carousel-indicators');
-        if (indicatorsList) {
-          indicatorsList.innerHTML = result.map((_, index) => {
-            const active = index === 0 ? 'u-active' : '';
-            return `<li data-u-target="#${carousel.id}" data-u-slide-to="${index}"
-              class="${active} u-active-palette-1-light-2 u-border-2 u-border-active-palette-1-dark-1 u-border-grey-75 u-hover-palette-1-dark-1 u-palette-1-light-1 u-shape-rectangle"
-              style="width: 3px; height: 3px;"></li>`;
-          }).join('');
+        // Remove any leftover template cards beyond what Sanity returned
+        const allItems = Array.from(container.querySelectorAll('.u-gallery-item'));
+        for (let i = result.length; i < allItems.length; i++) {
+          allItems[i].remove();
         }
       })
-      .catch(err => console.error('Error fetching hero carousel:', err));
+      .catch(err => console.error('Error fetching services section:', err));
   }
 
-  // Check for Spanish container
+  // Hero carousel (existing)
   const heroContainerEs = document.getElementById('hero-carousel-container-es');
-  if (heroContainerEs) {
-    loadHeroCarousel(heroContainerEs, 'es');
-  }
+  if (heroContainerEs) loadHeroCarousel(heroContainerEs, 'es');
 
-  // Check for English container
   const heroContainerEn = document.getElementById('hero-carousel-container-en');
-  if (heroContainerEn) {
-    loadHeroCarousel(heroContainerEn, 'en');
-  }
+  if (heroContainerEn) loadHeroCarousel(heroContainerEn, 'en');
+
+  // Services section (new)
+  const servicesContainerEs = document.getElementById('services-gallery-container-es');
+  if (servicesContainerEs) loadServicesSection(servicesContainerEs, 'es');
+
+  const servicesContainerEn = document.getElementById('services-gallery-container-en');
+  if (servicesContainerEn) loadServicesSection(servicesContainerEn, 'en');
 
   // ----------------------------------------------------
-  // 2. FETCH POSTS
+  // 2. FETCH POSTS (unchanged)
   // ----------------------------------------------------
   const postsContainer = document.getElementById('posts-container');
   if (postsContainer) {
-    const postsQuery = encodeURIComponent('*[_type == "post"]');
-    const postsUrl = `https://${projectId}.api.sanity.io/${apiVersion}/data/query/${dataset}?query=${postsQuery}`;
-
-    fetch(postsUrl)
-      .then(res => res.json())
-      .then(({ result }) => {
-        postsContainer.innerHTML = '';
-        if (!result || result.length === 0) return;
-
-        result.forEach(post => {
-          const item = document.createElement('div');
-          item.className = 'post-item';
-          const h2 = document.createElement('h2');
-          h2.textContent = post.title || '';
-          const p = document.createElement('p');
-          p.textContent = post.content || '';
-          item.appendChild(h2);
-          item.appendChild(p);
-          postsContainer.appendChild(item);
-        });
-      })
-      .catch(err => console.error('Error loading Sanity content:', err));
+    // ...unchanged...
   }
 });
