@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const dataset = 'production';
   const apiVersion = 'v2026-03-01';
 
+  // Helper to build Sanity CDN Image URLs
   function getSanityImageUrl(source) {
     if (!source || !source.asset || !source.asset._ref) return '';
     const ref = source.asset._ref;
@@ -13,46 +14,57 @@ document.addEventListener("DOMContentLoaded", function() {
     return `https://cdn.sanity.io/images/${projectId}/${dataset}/${id}-${dimensions}.${format}`;
   }
 
-  function loadHeroCarousel(container, lang, indicatorsList) {
+
+  function loadHeroCarousel(container, lang) {
     const heroQuery = encodeURIComponent(`*[_type == "heroSlide" && language == "${lang}"][0].slides`);
     const heroUrl = `https://${projectId}.api.sanity.io/${apiVersion}/data/query/${dataset}?query=${heroQuery}`;
 
     fetch(heroUrl)
       .then(res => res.json())
       .then(({ result }) => {
+        // If no document exists, or the slides array is empty/missing, exit cleanly
         if (!result || !Array.isArray(result) || result.length === 0) return;
 
-        const carouselId = container.closest('.u-carousel')?.id || '';
+        const existingSlides = Array.from(container.querySelectorAll('.u-carousel-item'));
+        if (existingSlides.length === 0) return; // nothing to clone from, bail safely
 
-        container.innerHTML = result.map((slide, index) => {
+        result.forEach((slide, index) => {
           const imageUrl = getSanityImageUrl(slide.image);
-          const isActive = index === 0 ? 'u-active' : '';
-          const n = index + 1;
+          let slideEl = existingSlides[index];
 
-          return `
-            <div class="${isActive} u-carousel-item u-gallery-item u-carousel-item-${n}">
-              <div class="u-back-slide" data-image-width="1200" data-image-height="1600">
-                <img
-                  class="u-back-image u-expanded lazyload u-back-image-${n}"
-                  data-src="${imageUrl}"
-                  src="${imageUrl}"
-                  alt="${slide.overlayText || 'Hero Slide'}"
-                  loading="lazy"
-                />
-              </div>
-              <div class="u-align-center u-container-align-left u-over-slide u-shading u-valign-middle u-over-slide-${n}">
-                <h4 class="u-align-left u-custom-font u-gallery-heading u-text-custom-color-2"></h4>
-                <h2 class="u-align-left u-custom-font u-gallery-text u-text-palette-1-light-2">${slide.overlayText || ''}</h2>
-              </div>
-            </div>
-          `;
-        }).join('');
+          if (!slideEl) {
+            // More Sanity slides than template slides: clone the last real one
+            // so it inherits nicepage's exact styling, then append it.
+            const template = existingSlides[existingSlides.length - 1];
+            slideEl = template.cloneNode(true);
+            slideEl.classList.remove('u-active');
+            container.appendChild(slideEl);
+            existingSlides.push(slideEl);
+          }
 
-        // Rebuild indicator dots to match the actual slide count
+          const img = slideEl.querySelector('img.u-back-image');
+          if (img) {
+            img.src = imageUrl;
+            img.dataset.src = imageUrl;
+            img.alt = slide.overlayText || 'Hero Slide';
+          }
+          const heading = slideEl.querySelector('.u-gallery-text');
+          if (heading) heading.textContent = slide.overlayText || '';
+        });
+
+        // Remove any leftover template slides beyond what Sanity returned
+        const allSlides = Array.from(container.querySelectorAll('.u-carousel-item'));
+        for (let i = result.length; i < allSlides.length; i++) {
+          allSlides[i].remove();
+        }
+
+        // Keep the indicator dots in sync with the final slide count
+        const carousel = container.closest('.u-carousel');
+        const indicatorsList = carousel && carousel.querySelector('.u-carousel-indicators');
         if (indicatorsList) {
           indicatorsList.innerHTML = result.map((_, index) => {
             const active = index === 0 ? 'u-active' : '';
-            return `<li data-u-target="#${carouselId}" data-u-slide-to="${index}"
+            return `<li data-u-target="#${carousel.id}" data-u-slide-to="${index}"
               class="${active} u-active-palette-1-light-2 u-border-2 u-border-active-palette-1-dark-1 u-border-grey-75 u-hover-palette-1-dark-1 u-palette-1-light-1 u-shape-rectangle"
               style="width: 3px; height: 3px;"></li>`;
           }).join('');
@@ -61,20 +73,20 @@ document.addEventListener("DOMContentLoaded", function() {
       .catch(err => console.error('Error fetching hero carousel:', err));
   }
 
+  // Check for Spanish container
   const heroContainerEs = document.getElementById('hero-carousel-container-es');
   if (heroContainerEs) {
-    const indicators = heroContainerEs.closest('.u-carousel')?.querySelector('.u-carousel-indicators');
-    loadHeroCarousel(heroContainerEs, 'es', indicators);
+    loadHeroCarousel(heroContainerEs, 'es');
   }
 
+  // Check for English container
   const heroContainerEn = document.getElementById('hero-carousel-container-en');
   if (heroContainerEn) {
-    const indicators = heroContainerEn.closest('.u-carousel')?.querySelector('.u-carousel-indicators');
-    loadHeroCarousel(heroContainerEn, 'en', indicators);
+    loadHeroCarousel(heroContainerEn, 'en');
   }
 
   // ----------------------------------------------------
-  // FETCH POSTS
+  // 2. FETCH POSTS
   // ----------------------------------------------------
   const postsContainer = document.getElementById('posts-container');
   if (postsContainer) {
