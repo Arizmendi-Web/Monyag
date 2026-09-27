@@ -1,9 +1,8 @@
 document.addEventListener("DOMContentLoaded", function() {
   const projectId = 'zjh62d7j';
   const dataset = 'production';
-  const apiVersion = 'v2026-03-01'; // Matches existing API version[cite: 3]
+  const apiVersion = 'v2026-03-01';
 
-  // Helper to build Sanity CDN Image URLs[cite: 3]
   function getSanityImageUrl(source) {
     if (!source || !source.asset || !source.asset._ref) return '';
     const ref = source.asset._ref;
@@ -14,59 +13,68 @@ document.addEventListener("DOMContentLoaded", function() {
     return `https://cdn.sanity.io/images/${projectId}/${dataset}/${id}-${dimensions}.${format}`;
   }
 
-  // ----------------------------------------------------
-  // 1. REUSABLE HERO CAROUSEL RENDERER
-  // ----------------------------------------------------
-function loadHeroCarousel(container, lang) {
-  // Queries the single document for the matching language and gets its slides array
-  const heroQuery = encodeURIComponent(`*[_type == "heroSlide" && language == "${lang}"][0].slides`);
-  const heroUrl = `https://${projectId}.api.sanity.io/${apiVersion}/data/query/${dataset}?query=${heroQuery}`;
+  function loadHeroCarousel(container, lang, indicatorsList) {
+    const heroQuery = encodeURIComponent(`*[_type == "heroSlide" && language == "${lang}"][0].slides`);
+    const heroUrl = `https://${projectId}.api.sanity.io/${apiVersion}/data/query/${dataset}?query=${heroQuery}`;
 
-  fetch(heroUrl)
-    .then(res => res.json())
-    .then(({ result }) => {
-      // If no document exists, or the slides array is empty/missing, exit cleanly
-      if (!result || !Array.isArray(result) || result.length === 0) return;
+    fetch(heroUrl)
+      .then(res => res.json())
+      .then(({ result }) => {
+        if (!result || !Array.isArray(result) || result.length === 0) return;
 
-      container.innerHTML = result.map((slide, index) => {
-        const imageUrl = getSanityImageUrl(slide.image);
-        const isActive = index === 0 ? 'u-active' : '';
+        const carouselId = container.closest('.u-carousel')?.id || '';
 
-        return `
-          <div class="${isActive} u-carousel-item u-gallery-item u-carousel-item-${index + 1}">
-            <div class="u-back-slide">
-              <img
-                class="u-back-image u-expanded lazyload u-back-image-${index + 1}"
-                data-src="${imageUrl}"
-                src="${imageUrl}"
-                alt="${slide.overlayText || 'Hero Slide'}"
-              />
+        container.innerHTML = result.map((slide, index) => {
+          const imageUrl = getSanityImageUrl(slide.image);
+          const isActive = index === 0 ? 'u-active' : '';
+          const n = index + 1;
+
+          return `
+            <div class="${isActive} u-carousel-item u-gallery-item u-carousel-item-${n}">
+              <div class="u-back-slide" data-image-width="1200" data-image-height="1600">
+                <img
+                  class="u-back-image u-expanded lazyload u-back-image-${n}"
+                  data-src="${imageUrl}"
+                  src="${imageUrl}"
+                  alt="${slide.overlayText || 'Hero Slide'}"
+                  loading="lazy"
+                />
+              </div>
+              <div class="u-align-center u-container-align-left u-over-slide u-shading u-valign-middle u-over-slide-${n}">
+                <h4 class="u-align-left u-custom-font u-gallery-heading u-text-custom-color-2"></h4>
+                <h2 class="u-align-left u-custom-font u-gallery-text u-text-palette-1-light-2">${slide.overlayText || ''}</h2>
+              </div>
             </div>
-            <!-- Dynamic Overlay Text per Slide -->
-            <div class="u-over-slide u-over-slide-1">
-              <h2 class="u-text u-text-default u-title">${slide.overlayText || ''}</h2>
-            </div>
-          </div>
-        `;
-      }).join('');
-    })
-    .catch(err => console.error('Error fetching hero carousel:', err));
-}
+          `;
+        }).join('');
 
-  // Check for Spanish container[cite: 3]
+        // Rebuild indicator dots to match the actual slide count
+        if (indicatorsList) {
+          indicatorsList.innerHTML = result.map((_, index) => {
+            const active = index === 0 ? 'u-active' : '';
+            return `<li data-u-target="#${carouselId}" data-u-slide-to="${index}"
+              class="${active} u-active-palette-1-light-2 u-border-2 u-border-active-palette-1-dark-1 u-border-grey-75 u-hover-palette-1-dark-1 u-palette-1-light-1 u-shape-rectangle"
+              style="width: 3px; height: 3px;"></li>`;
+          }).join('');
+        }
+      })
+      .catch(err => console.error('Error fetching hero carousel:', err));
+  }
+
   const heroContainerEs = document.getElementById('hero-carousel-container-es');
   if (heroContainerEs) {
-    loadHeroCarousel(heroContainerEs, 'es');
+    const indicators = heroContainerEs.closest('.u-carousel')?.querySelector('.u-carousel-indicators');
+    loadHeroCarousel(heroContainerEs, 'es', indicators);
   }
 
-  // Check for English container[cite: 3]
   const heroContainerEn = document.getElementById('hero-carousel-container-en');
   if (heroContainerEn) {
-    loadHeroCarousel(heroContainerEn, 'en');
+    const indicators = heroContainerEn.closest('.u-carousel')?.querySelector('.u-carousel-indicators');
+    loadHeroCarousel(heroContainerEn, 'en', indicators);
   }
 
   // ----------------------------------------------------
-  // 2. FETCH POSTS[cite: 3]
+  // FETCH POSTS
   // ----------------------------------------------------
   const postsContainer = document.getElementById('posts-container');
   if (postsContainer) {
@@ -82,10 +90,12 @@ function loadHeroCarousel(container, lang) {
         result.forEach(post => {
           const item = document.createElement('div');
           item.className = 'post-item';
-          item.innerHTML = `
-            <h2>${post.title || ''}</h2>
-            <p>${post.content || ''}</p>
-          `;
+          const h2 = document.createElement('h2');
+          h2.textContent = post.title || '';
+          const p = document.createElement('p');
+          p.textContent = post.content || '';
+          item.appendChild(h2);
+          item.appendChild(p);
           postsContainer.appendChild(item);
         });
       })
