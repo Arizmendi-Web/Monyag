@@ -7,15 +7,30 @@ export function BigImageInput(props) {
   return (
     <Card
       style={{
-        // Force the wrapper container to have a minimum height when empty
-        minHeight: hasValue ? 'auto' : '280px',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
+        // Targets the inner drop zone container directly
+        '& [data-ui="DropTarget"]': {
+          minHeight: hasValue ? 'auto' : '260px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        },
+        // Fallback targeting for Sanity's internal file input wrapper frame
+        '& button[data-testid="file-button"]': {
+          minHeight: hasValue ? 'auto' : '260px',
+        },
       }}
     >
-      {/* Render Sanity's standard image upload input inside */}
-      {props.renderDefault(props)}
+      <div
+        style={{
+          // Direct inline target for the drop zone box element
+          minHeight: hasValue ? 'auto' : '260px',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+        }}
+      >
+        {props.renderDefault(props)}
+      </div>
     </Card>
   )
 }
