@@ -161,6 +161,37 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   // ----------------------------------------------------
+  // ABOUT PAGE: main description, mission, vision (text only)
+  // ----------------------------------------------------
+  const ABOUT_FIELDS = ['intro', 'mission', 'vision'];
+
+  function loadAboutPage(lang) {
+    const query = encodeURIComponent(
+      `*[_type == "aboutPage" && language == "${lang}"][0]{${ABOUT_FIELDS.join(', ')}}`
+    );
+    const url = `https://${projectId}.api.sanity.io/${apiVersion}/data/query/${dataset}?query=${query}`;
+
+    fetch(url)
+      .then(res => res.json())
+      .then(({ result }) => {
+        if (!result) {
+          console.warn(`No aboutPage document found for language "${lang}"`);
+          return;
+        }
+
+        ABOUT_FIELDS.forEach(field => {
+          const el = document.getElementById(`about-${field}-${lang}`);
+          const value = result[field];
+          // Skip missing elements or empty values so the HTML text stays as a fallback
+          if (!el || !value) return;
+          el.textContent = value;
+          el.style.whiteSpace = 'pre-line'; // keep line breaks typed in Sanity
+        });
+      })
+      .catch(err => console.error('Error fetching aboutPage document:', err));
+  }
+
+  // ----------------------------------------------------
   // Run whatever exists on the current page
   // ----------------------------------------------------
   if (document.getElementById('hero-carousel-container-es') || document.getElementById('services-gallery-container-es')) {
@@ -172,6 +203,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
   if (document.getElementById('gallery-deco-es')) loadGalleryPage('es');
   if (document.getElementById('gallery-deco-en')) loadGalleryPage('en');
+
+  if (document.getElementById('about-intro-es')) loadAboutPage('es');
+  if (document.getElementById('about-intro-en')) loadAboutPage('en');
 
   // ----------------------------------------------------
   // FETCH POSTS
