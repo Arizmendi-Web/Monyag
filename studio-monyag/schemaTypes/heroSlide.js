@@ -3,7 +3,7 @@ import { BigImageInput } from './components/BigImageInput'
 
 export default {
   name: 'heroSlide',
-  title: 'Main Images',
+  title: 'Main Page',
   type: 'document',
   // Controls the header title/subtitle at the top of the document editor
   preview: {
@@ -14,7 +14,7 @@ export default {
     prepare({ language, media }) {
       const labels = { es: 'Español', en: 'English' }
       return {
-        title: 'Main Images',
+        title: 'Main Page',
         subtitle: language ? labels[language] : 'No language selected',
         media,
       }
