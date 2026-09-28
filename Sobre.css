@@ -1,95 +1,87 @@
 .u-section-1 {
   --color-var: #fdf2f1;
   background-color: var(--color-var);
-  padding: 50px 0;
+  padding: 40px 0 60px;
 }
 
 .u-section-1 .u-sheet-1 {
-  min-height: auto;
+  min-height: auto !important;
   max-width: 1140px;
   margin: 0 auto;
   padding: 0 20px;
 }
 
-/* Main Section Heading: Centered & Large */
+/* 1. Main Heading: "Sobre Nosotros" */
 .u-section-1 .u-text-1 {
   font-family: "Bodoni Moda", serif;
   font-weight: 700;
   font-size: 2.75rem;
   text-align: center;
-  margin: 0 auto 30px auto;
+  margin: 0 auto 28px auto !important;
 }
 
-/* Top Intro Paragraph: Centered Block */
+/* 2. Top Main Paragraph */
 .u-section-1 .u-text-2 {
   font-family: Montserrat, sans-serif;
   font-size: 1.05rem;
   line-height: 1.6;
-  text-align: center;
-  max-width: 960px;
-  margin: 0 auto 50px auto;
+  text-align: left;
+  max-width: 1060px;
+  margin: 0 auto 48px auto !important;
 }
 
-/* Grid Layout for Misión & Visión Columns */
+/* 3. Misión & Visión Two-Column Container */
 .u-section-1 .u-layout-wrap-1 {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 40px;
-  margin-bottom: 50px;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 48px !important;
+  margin: 0 0 40px 0 !important;
 }
 
 .u-section-1 .u-layout-cell-2,
 .u-section-1 .u-layout-cell-3 {
-  flex: 1;
-  min-width: 300px;
+  flex: 1 !important;
+  min-width: 320px !important;
+  min-height: auto !important;
+  padding: 0 !important;
 }
 
-/* Subheadings: Centered Above Columns */
+/* Subheadings: "Misión" & "Visión" */
 .u-section-1 .u-text-3,
 .u-section-1 .u-text-5 {
-  font-weight: 700;
   font-family: "Bodoni Moda", serif;
+  font-weight: 700;
   font-size: 1.5rem;
   text-align: center;
-  margin: 0 auto 16px auto;
+  margin: 0 auto 16px auto !important;
 }
 
-/* Column Body Text: Left-aligned under centered headings */
+/* Body Text for Misión & Visión */
 .u-section-1 .u-text-4,
 .u-section-1 .u-text-6 {
   font-family: Montserrat, sans-serif;
-  font-size: 0.95rem;
+  font-size: 0.98rem;
   line-height: 1.6;
   text-align: left;
-  margin: 0;
+  margin: 0 !important;
 }
 
-/* Bottom Feature Icons: Side-by-Side Flex Layout */
+/* 4. Bottom Icons & Labels Side-by-Side Grid */
 .u-section-1 .u-container-layout-3 {
-  display: flex;
-  justify-content: space-around;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  gap: 30px;
-  margin-top: 20px;
+  display: flex !important;
+  justify-content: space-around !important;
+  align-items: flex-start !important;
+  padding: 20px 0 0 0 !important;
+  margin: 0 !important;
 }
 
-/* Feature Item Wrapper (Icon + Label) */
-.u-section-1 .u-feature-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  flex: 1;
-  min-width: 220px;
-}
-
+/* Force Reset on Nicepage Offset Margins for Icons */
 .u-section-1 .u-icon-1,
 .u-section-1 .u-icon-2 {
-  width: 64px;
-  height: 64px;
-  margin: 0 auto 12px auto;
-  display: block;
+  width: 64px !important;
+  height: 64px !important;
+  margin: 0 auto 12px auto !important;
+  display: block !important;
 }
 
 .u-section-1 .u-text-7,
@@ -98,22 +90,19 @@
   font-weight: 700;
   font-size: 1.15rem;
   text-align: center;
-  margin: 0 auto;
+  margin: 0 auto !important;
+  width: auto !important;
 }
 
-/* Mobile Responsiveness */
+/* Responsive Breakpoint */
 @media (max-width: 767px) {
-  .u-section-1 .u-text-1 {
-    font-size: 2rem;
-  }
-
   .u-section-1 .u-layout-wrap-1 {
-    flex-direction: column;
-    gap: 30px;
+    flex-direction: column !alignment;
+    gap: 32px !important;
   }
 
-  .u-section-1 .u-text-4,
-  .u-section-1 .u-text-6 {
-    text-align: center;
+  .u-section-1 .u-container-layout-3 {
+    flex-direction: column !important;
+    gap: 32px !important;
   }
 }
