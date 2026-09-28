@@ -1,7 +1,7 @@
 .u-section-1 {
   --color-var: #fdf2f1;
   background-color: var(--color-var);
-  padding: 40px 0;
+  padding: 50px 0;
 }
 
 .u-section-1 .u-sheet-1 {
@@ -11,50 +11,50 @@
   padding: 0 20px;
 }
 
-/* Main Section Heading: "Sobre Nosotros" */
+/* Main Section Heading: Centered & Large */
 .u-section-1 .u-text-1 {
   font-family: "Bodoni Moda", serif;
   font-weight: 700;
-  font-size: 2.25rem;
+  font-size: 2.75rem;
   text-align: center;
-  margin: 0 0 24px 0;
+  margin: 0 auto 30px auto;
 }
 
-/* Top Intro Paragraph */
+/* Top Intro Paragraph: Centered Block */
 .u-section-1 .u-text-2 {
   font-family: Montserrat, sans-serif;
-  font-size: 1rem;
+  font-size: 1.05rem;
   line-height: 1.6;
   text-align: center;
-  max-width: 900px;
-  margin: 0 auto 40px auto;
+  max-width: 960px;
+  margin: 0 auto 50px auto;
 }
 
-/* Grid Layout Wrapper for Misión & Visión */
+/* Grid Layout for Misión & Visión Columns */
 .u-section-1 .u-layout-wrap-1 {
-  margin-top: 0;
-  margin-bottom: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  margin-bottom: 50px;
 }
 
-/* Container Layout Reset */
-.u-section-1 .u-container-layout-1,
-.u-section-1 .u-container-layout-2,
-.u-section-1 .u-container-layout-3 {
-  padding: 16px;
-  box-sizing: border-box;
+.u-section-1 .u-layout-cell-2,
+.u-section-1 .u-layout-cell-3 {
+  flex: 1;
+  min-width: 300px;
 }
 
-/* Subheadings: "Misión" & "Visión" */
+/* Subheadings: Centered Above Columns */
 .u-section-1 .u-text-3,
 .u-section-1 .u-text-5 {
   font-weight: 700;
   font-family: "Bodoni Moda", serif;
   font-size: 1.5rem;
   text-align: center;
-  margin: 0 0 12px 0;
+  margin: 0 auto 16px auto;
 }
 
-/* Body Text for Misión & Visión */
+/* Column Body Text: Left-aligned under centered headings */
 .u-section-1 .u-text-4,
 .u-section-1 .u-text-6 {
   font-family: Montserrat, sans-serif;
@@ -64,7 +64,26 @@
   margin: 0;
 }
 
-/* Feature Icons Box Container */
+/* Bottom Feature Icons: Side-by-Side Flex Layout */
+.u-section-1 .u-container-layout-3 {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+/* Feature Item Wrapper (Icon + Label) */
+.u-section-1 .u-feature-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+  min-width: 220px;
+}
+
 .u-section-1 .u-icon-1,
 .u-section-1 .u-icon-2 {
   width: 64px;
@@ -73,20 +92,24 @@
   display: block;
 }
 
-/* Feature Labels under Icons */
 .u-section-1 .u-text-7,
 .u-section-1 .u-text-8 {
   font-family: "Bodoni Moda", serif;
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   text-align: center;
   margin: 0 auto;
 }
 
-/* Responsive Media Queries */
+/* Mobile Responsiveness */
 @media (max-width: 767px) {
   .u-section-1 .u-text-1 {
-    font-size: 1.75rem;
+    font-size: 2rem;
+  }
+
+  .u-section-1 .u-layout-wrap-1 {
+    flex-direction: column;
+    gap: 30px;
   }
 
   .u-section-1 .u-text-4,
