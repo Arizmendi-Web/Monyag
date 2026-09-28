@@ -1,11 +1,25 @@
 import { DoneButtonInput } from './components/DoneButtonInput'
-import { BigImageInput } from './components/BigImageInput' // Import wrapper
+import { BigImageInput } from './components/BigImageInput'
 
 export default {
   name: 'heroSlide',
   title: 'Main Images',
   type: 'document',
-  // ... preview configuration ...
+  // Controls the header title/subtitle at the top of the document editor
+  preview: {
+    select: {
+      language: 'language',
+      media: 'slides.0.image',
+    },
+    prepare({ language, media }) {
+      const labels = { es: 'Español', en: 'English' }
+      return {
+        title: 'Main Images',
+        subtitle: language ? labels[language] : 'No language selected',
+        media,
+      }
+    },
+  },
   fields: [
     {
       name: 'language',
@@ -56,7 +70,7 @@ export default {
               name: 'image',
               title: 'Banner Photo',
               type: 'image',
-              components: { input: BigImageInput }, // Added component customizer
+              components: { input: BigImageInput },
               options: {
                 hotspot: true,
               },
@@ -88,7 +102,7 @@ export default {
               return {
                 title: title ? `Service: "${title}"` : 'No label entered',
                 media,
-              };
+              }
             },
           },
           fields: [
@@ -102,19 +116,13 @@ export default {
               name: 'image',
               title: 'Photo',
               type: 'image',
-              components: { input: BigImageInput }, // Added component customizer
+              components: { input: BigImageInput },
               options: { hotspot: true },
               validation: (Rule) => Rule.required(),
-            },
-            {
-              name: 'link',
-              title: 'Link Override (optional)',
-              type: 'string',
-              description: 'Leave blank to keep the default Gallery link for this card.',
             },
           ],
         },
       ],
     },
   ],
-};
+}
