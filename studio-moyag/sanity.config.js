@@ -9,22 +9,13 @@ export default defineConfig({
   projectId: 'zjh62d7j',
   dataset: 'production',
 
-  plugins: [
-    structureTool({
-      structure: (S) =>
-        S.list()
-          .title('Content')
-          .items([
-            // Explicitly list ONLY heroSlide in the navigation menu
-            S.documentTypeListItem('heroSlide').title('Main Images'),
-          ]),
-    }),
-  ],
+  // Only load the structure tool (removes visionTool)
+  plugins: [structureTool()],
 
-  // Ensure only the structure tool is visible
+  // Ensure only the structure tool shows up top
   tools: (prev) => prev.filter((tool) => tool.name === 'structure'),
 
-  // Remove the top navbar
+  // Hide the top navbar so the workspace dropdown and "Manage project" link are gone
   studio: {
     components: {
       navbar: () => null,
