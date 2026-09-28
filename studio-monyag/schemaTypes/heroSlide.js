@@ -1,24 +1,11 @@
-import {DoneButtonInput} from './components/DoneButtonInput'
+import { DoneButtonInput } from './components/DoneButtonInput'
+import { BigImageInput } from './components/BigImageInput' // Import wrapper
 
 export default {
   name: 'heroSlide',
   title: 'Main Images',
   type: 'document',
-  // This preview controls the header title/subtitle at the top of the document editor
-  preview: {
-    select: {
-      language: 'language',
-      media: 'slides.0.image',
-    },
-    prepare({ language, media }) {
-      const labels = { es: 'Español', en: 'English' };
-      return {
-        title: 'Main Images',
-        subtitle: language ? labels[language] : 'No language selected',
-        media,
-      };
-    },
-  },
+  // ... preview configuration ...
   fields: [
     {
       name: 'language',
@@ -45,7 +32,7 @@ export default {
           type: 'object',
           name: 'slideItem',
           title: 'Slide Item',
-          components: {input: DoneButtonInput},
+          components: { input: DoneButtonInput },
           preview: {
             select: {
               title: 'overlayText',
@@ -55,7 +42,7 @@ export default {
               return {
                 title: title ? `Word: "${title}"` : 'No word entered',
                 media,
-              };
+              }
             },
           },
           fields: [
@@ -69,6 +56,7 @@ export default {
               name: 'image',
               title: 'Banner Photo',
               type: 'image',
+              components: { input: BigImageInput }, // Added component customizer
               options: {
                 hotspot: true,
               },
@@ -90,7 +78,7 @@ export default {
           type: 'object',
           name: 'serviceItem',
           title: 'Service Item',
-          components: {input: DoneButtonInput},
+          components: { input: DoneButtonInput },
           preview: {
             select: {
               title: 'label',
@@ -114,6 +102,7 @@ export default {
               name: 'image',
               title: 'Photo',
               type: 'image',
+              components: { input: BigImageInput }, // Added component customizer
               options: { hotspot: true },
               validation: (Rule) => Rule.required(),
             },
