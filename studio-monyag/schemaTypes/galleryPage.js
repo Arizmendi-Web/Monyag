@@ -1,6 +1,9 @@
-const carouselSection = (name, title) => ({
+import { BigImageArrayInput } from './components/BigImageArrayInput'
+
+const carouselSection = (name, title, description) => ({
   name,
   title,
+  description,
   type: 'object',
   options: { collapsible: true, collapsed: false },
   fields: [
@@ -14,6 +17,7 @@ const carouselSection = (name, title) => ({
       name: 'images',
       title: 'Photos',
       type: 'array',
+      components: { input: BigImageArrayInput },
       of: [{ type: 'image', options: { hotspot: true } }],
       options: { layout: 'grid' },
       description: 'Drag in several photos at once. Drag photos to reorder them.',
@@ -54,9 +58,10 @@ export default {
       },
       validation: (Rule) => Rule.required(),
     },
-    carouselSection('deco', 'Decorations'),
-    carouselSection('tents', 'Tents'),
-    carouselSection('tables', 'Tables and Chairs'),
-    carouselSection('backdrops', 'Backdrops and Decorations'),
+    // The first argument is the internal name Sanity.js uses. Do not rename it.
+    carouselSection('deco', 'Section 1', 'First carousel on the Gallery page (top).'),
+    carouselSection('tents', 'Section 2', 'Second carousel on the Gallery page.'),
+    carouselSection('tables', 'Section 3', 'Third carousel on the Gallery page.'),
+    carouselSection('backdrops', 'Section 4', 'Fourth carousel on the Gallery page (bottom).'),
   ],
 }
