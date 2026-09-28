@@ -1,6 +1,10 @@
 import { defineConfig } from 'sanity'
 import { structureTool } from 'sanity/structure'
+import { visionTool } from '@sanity/vision'
 import { schemaTypes } from './schemaTypes'
+
+// Check if Cloudflare is building the simplified client version
+const isClientBuild = process.env.SANITY_STUDIO_CLIENT_MODE === 'true'
 
 export default defineConfig({
   name: 'default',
@@ -9,16 +13,13 @@ export default defineConfig({
   projectId: 'zjh62d7j',
   dataset: 'production',
 
-  // Only load the structure tool (removes visionTool)
-  plugins: [structureTool()],
+  // Include Vision tool for your dev/sanity.io builds, but omit for client
+  plugins: isClientBuild ? [structureTool()] : [structureTool(), visionTool()],
 
-  // Ensure only the structure tool shows up top
-  tools: (prev) => prev.filter((tool) => tool.name === 'structure'),
-
-  // Hide the top navbar so the workspace dropdown and "Manage project" link are gone
+  // Hide top navbar only on the client build
   studio: {
     components: {
-      navbar: () => null,
+      navbar: isClientBuild ? () => null : undefined,
     },
   },
 
